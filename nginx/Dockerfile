@@ -1,3 +1,13 @@
-FROM nginx:latest
+FROM python:3.12
 
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+ENV PYTHONUNBUFFERED=1
+
+WORKDIR /app
+
+COPY ../req.txt /app/
+RUN pip install --upgrade pip && \
+    pip install -r req.txt
+
+COPY nginx.conf /etc/nginx/conf.d/
+
+COPY .. /app/
